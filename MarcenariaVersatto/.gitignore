@@ -1,0 +1,10 @@
+## Compilação
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+## Configuração local com senha do banco (NÃO enviar ao GitHub)
+appsettings.Local.json
+appsettings.Development.json

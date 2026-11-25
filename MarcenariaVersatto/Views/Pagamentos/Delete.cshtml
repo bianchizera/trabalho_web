@@ -1,0 +1,12 @@
+@model Pagamento
+@{ ViewData["Title"] = "Excluir pagamento"; }
+
+<div class="page-title"><i class="material-icons left">delete</i>Excluir Pagamento</div>
+<div class="card-versatto">
+    <p>Confirma a exclusão do pagamento de <strong>@Model.Valor.ToString("C2")</strong> (orçamento #@Model.OrcamentoId)?</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn red waves-effect"><i class="material-icons left">delete</i>Confirmar exclusão</button>
+        <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px">Cancelar</a>
+    </form>
+</div>

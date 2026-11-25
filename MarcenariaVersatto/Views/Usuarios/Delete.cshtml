@@ -1,0 +1,13 @@
+@model Usuario
+@{ ViewData["Title"] = "Excluir usuário"; }
+
+<div class="page-title"><i class="material-icons left">delete</i>Excluir Usuário</div>
+<div class="card-versatto">
+    <p>Confirma a exclusão do usuário <strong>@Model.Login</strong> (@Model.Funcionario?.Nome)?</p>
+    <p class="grey-text">O funcionário continua cadastrado; ele apenas perde o acesso ao sistema.</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn red waves-effect"><i class="material-icons left">delete</i>Confirmar exclusão</button>
+        <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px">Cancelar</a>
+    </form>
+</div>

@@ -1,0 +1,16 @@
+@model Material
+@{ ViewData["Title"] = "Detalhes do material"; }
+
+<div class="page-title"><i class="material-icons left">inventory_2</i>@Model.Nome</div>
+<div class="card-versatto">
+    <div class="row" style="margin-bottom:0">
+        <div class="col s12 m6"><strong>Categoria:</strong> @Model.Categoria?.Nome</div>
+        <div class="col s12 m6"><strong>Fornecedor padrão:</strong> @(Model.FornecedorPadrao?.RazaoSocial ?? "-")</div>
+        <div class="col s12 m6"><strong>Unidade de medida:</strong> @Model.UnidadeMedida</div>
+        <div class="col s12 m6"><strong>Estoque mínimo:</strong> @Model.EstoqueMinimo</div>
+        <div class="col s12 m6"><strong>Estoque atual:</strong> @Model.EstoqueAtual</div>
+        <div class="col s12 m6"><strong>Valor unitário:</strong> @Model.ValorUnitario.ToString("C2")</div>
+    </div>
+</div>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-versatto waves-effect"><i class="material-icons left">edit</i>Editar</a>
+<a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>

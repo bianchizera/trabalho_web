@@ -1,0 +1,14 @@
+@model Fornecedor
+@{ ViewData["Title"] = "Detalhes do fornecedor"; }
+
+<div class="page-title"><i class="material-icons left">business</i>@Model.RazaoSocial</div>
+<div class="card-versatto">
+    <div class="row" style="margin-bottom:0">
+        <div class="col s12 m6"><strong>CNPJ:</strong> @Model.Cnpj</div>
+        <div class="col s12 m6"><strong>Telefone:</strong> @Model.Telefone</div>
+        <div class="col s12 m6"><strong>E-mail:</strong> @Model.Email</div>
+        <div class="col s12 m6"><strong>Endereço:</strong> @Model.Endereco</div>
+    </div>
+</div>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-versatto waves-effect"><i class="material-icons left">edit</i>Editar</a>
+<a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>

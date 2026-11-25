@@ -1,0 +1,72 @@
+@model Cliente
+@{ ViewData["Title"] = "Editar cliente"; }
+
+<div class="page-title"><i class="material-icons left">edit</i>Editar Cliente</div>
+
+<div class="card-versatto">
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="alerta-erro"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="input-field col s12 m8">
+                <i class="material-icons prefix">person</i>
+                <input asp-for="Nome" maxlength="150" />
+                <label asp-for="Nome" class="active">Nome completo *</label>
+                <span asp-validation-for="Nome" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m4">
+                <label asp-for="TipoPessoa">Tipo de pessoa</label><br>
+                <select asp-for="TipoPessoa">
+                    <option value="F">Física</option>
+                    <option value="J">Jurídica</option>
+                </select>
+                <span asp-validation-for="TipoPessoa" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">badge</i>
+                <input asp-for="CpfCnpj" maxlength="18" />
+                <label asp-for="CpfCnpj" class="active">CPF/CNPJ</label>
+                <span asp-validation-for="CpfCnpj" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">phone</i>
+                <input asp-for="Telefone" maxlength="20" />
+                <label asp-for="Telefone" class="active">Telefone</label>
+                <span asp-validation-for="Telefone" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">email</i>
+                <input asp-for="Email" maxlength="150" />
+                <label asp-for="Email" class="active">E-mail</label>
+                <span asp-validation-for="Email" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">location_city</i>
+                <input asp-for="Cidade" maxlength="100" />
+                <label asp-for="Cidade" class="active">Cidade</label>
+                <span asp-validation-for="Cidade" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">home</i>
+                <input asp-for="Endereco" maxlength="255" />
+                <label asp-for="Endereco" class="active">Endereço</label>
+                <span asp-validation-for="Endereco" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button class="btn btn-versatto waves-effect" type="submit"><i class="material-icons left">save</i>Salvar</button>
+                <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

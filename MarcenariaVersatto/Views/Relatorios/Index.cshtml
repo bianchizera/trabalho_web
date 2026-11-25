@@ -1,0 +1,47 @@
+@{ ViewData["Title"] = "Relatórios"; }
+
+<div class="page-title"><i class="material-icons left">bar_chart</i>Relatórios e Consultas</div>
+
+<div class="row home-cards">
+@if (User.IsInRole(Perfis.Admin))
+{
+    <div class="col s12 m6 l4">
+        <div class="card-versatto">
+            <h6 style="color:#1a3a6b;font-weight:bold"><i class="material-icons left estoque-baixo">warning</i>Alertas de estoque baixo</h6>
+            <p>Materiais com saldo abaixo do estoque mínimo.</p>
+            <a asp-action="Alertas" class="btn btn-versatto">Abrir</a>
+        </div>
+    </div>
+}
+    <div class="col s12 m6 l4">
+        <div class="card-versatto">
+            <h6 style="color:#1a3a6b;font-weight:bold"><i class="material-icons left">swap_vert</i>Movimento por material</h6>
+            <p>Entradas, saídas, saldo e valores por material, com totais (movimentações + materiais + categorias).</p>
+            <a asp-action="MovimentoPorMaterial" class="btn btn-versatto">Abrir</a>
+        </div>
+    </div>
+@if (User.IsInRole(Perfis.Admin))
+{
+    <div class="col s12 m6 l4">
+        <div class="card-versatto">
+            <h6 style="color:#1a3a6b;font-weight:bold"><i class="material-icons left">request_quote</i>Orçamentos por cliente</h6>
+            <p>Total orçado, aprovado, pago e a receber de cada cliente (clientes + orçamentos + pagamentos).</p>
+            <a asp-action="OrcamentosPorCliente" class="btn btn-versatto">Abrir</a>
+        </div>
+    </div>
+}
+    <div class="col s12 m6 l4">
+        <div class="card-versatto">
+            <h6 style="color:#1a3a6b;font-weight:bold"><i class="material-icons left">category</i>Materiais por categoria</h6>
+            <p>Agrupamento: quantidade de materiais, itens abaixo do mínimo e valor em estoque por categoria.</p>
+            <a asp-action="MateriaisPorCategoria" class="btn btn-versatto">Abrir</a>
+        </div>
+    </div>
+    <div class="col s12 m6 l4">
+        <div class="card-versatto">
+            <h6 style="color:#1a3a6b;font-weight:bold"><i class="material-icons left">calendar_month</i>Movimentações por mês</h6>
+            <p>Agrupamento: quantidade e valor de entradas e saídas mês a mês.</p>
+            <a asp-action="MovimentacoesPorMes" class="btn btn-versatto">Abrir</a>
+        </div>
+    </div>
+</div>

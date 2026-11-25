@@ -1,0 +1,71 @@
+@{ ViewData["Title"] = "Início"; }
+
+<div class="home-hero">
+    <img src="~/images/logo.png" alt="Versatto" asp-append-version="true">
+    <h3 style="margin-top:20px;font-weight:bold">Versatto Móveis Planejados</h3>
+    <p style="font-size:1.1rem;opacity:.9">Sistema de Controle de Estoque e Orçamentos</p>
+</div>
+
+<div class="row home-cards" style="margin-top:28px">
+    <div class="col s12 m3">
+        <div class="card-versatto center">
+            <i class="material-icons" style="font-size:3rem;color:#f5c842">people</i>
+            <h6 style="color:#1a3a6b;font-weight:bold">@ViewData["TotalClientes"]</h6>
+            <p>Clientes cadastrados</p>
+            <a asp-controller="Clientes" asp-action="Index" class="btn btn-versatto">Acessar</a>
+        </div>
+    </div>
+    <div class="col s12 m3">
+        <div class="card-versatto center">
+            <i class="material-icons" style="font-size:3rem;color:#f5c842">inventory_2</i>
+            <h6 style="color:#1a3a6b;font-weight:bold">@ViewData["TotalMateriais"]</h6>
+            <p>Materiais em estoque</p>
+            <a asp-controller="Materiais" asp-action="Index" class="btn btn-versatto">Acessar</a>
+        </div>
+    </div>
+    <div class="col s12 m3">
+        <div class="card-versatto center">
+            <i class="material-icons" style="font-size:3rem;color:#f5c842">request_quote</i>
+            <h6 style="color:#1a3a6b;font-weight:bold">@ViewData["TotalOrcamentos"]</h6>
+            <p>Orçamentos registrados</p>
+            <a asp-controller="Orcamentos" asp-action="Index" class="btn btn-versatto">Acessar</a>
+        </div>
+    </div>
+    <div class="col s12 m3">
+        <div class="card-versatto center">
+            <i class="material-icons estoque-baixo" style="font-size:3rem">warning</i>
+            <h6 class="estoque-baixo">@ViewData["MateriaisAbaixoMinimo"]</h6>
+            <p>Materiais abaixo do estoque mínimo</p>
+            @if (User.IsInRole(Perfis.Admin))
+            {
+                <a asp-controller="Relatorios" asp-action="Alertas" class="btn btn-versatto">Ver alertas</a>
+            }
+            else
+            {
+                <a asp-controller="Materiais" asp-action="Index" asp-route-situacao="baixo" class="btn btn-versatto">Ver materiais</a>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="card-versatto center" style="margin-top:8px">
+    <a asp-controller="MovimentacoesEstoque" asp-action="Create" asp-route-tipo="entrada" class="btn btn-versatto waves-effect"><i class="material-icons left">south_west</i>Registrar entrada</a>
+    <a asp-controller="MovimentacoesEstoque" asp-action="Create" asp-route-tipo="saida" class="btn btn-amarelo waves-effect" style="margin-left:8px"><i class="material-icons left">north_east</i>Registrar saída</a>
+    <a asp-controller="Relatorios" asp-action="Index" class="btn grey darken-1 waves-effect" style="margin-left:8px"><i class="material-icons left">bar_chart</i>Relatórios</a>
+</div>
+
+@if (ViewData["Alertas"] is List<Material> alertas && alertas.Any())
+{
+    <div class="card-versatto">
+        <h6 class="estoque-baixo"><i class="material-icons left">warning</i>Materiais críticos</h6>
+        <table class="versatto-table responsive-table">
+            <thead><tr><th>Material</th><th>Estoque atual</th><th>Mínimo</th></tr></thead>
+            <tbody>
+            @foreach (var a in alertas)
+            {
+                <tr><td>@a.Nome</td><td class="estoque-baixo">@a.EstoqueAtual @a.UnidadeMedida</td><td>@a.EstoqueMinimo @a.UnidadeMedida</td></tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

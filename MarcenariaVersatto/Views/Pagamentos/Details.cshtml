@@ -1,0 +1,15 @@
+@model Pagamento
+@{ ViewData["Title"] = "Detalhes do pagamento"; }
+
+<div class="page-title"><i class="material-icons left">payments</i>Pagamento #@Model.Id</div>
+<div class="card-versatto">
+    <div class="row" style="margin-bottom:0">
+        <div class="col s12 m6"><strong>Orçamento:</strong> #@Model.OrcamentoId — @Model.Orcamento?.Cliente?.Nome</div>
+        <div class="col s12 m6"><strong>Valor:</strong> @Model.Valor.ToString("C2")</div>
+        <div class="col s12 m6"><strong>Forma de pagamento:</strong> @Model.FormaPagamento</div>
+        <div class="col s12 m6"><strong>Data:</strong> @(Model.DataPagamento?.ToShortDateString() ?? "-")</div>
+        <div class="col s12"><strong>Status:</strong> @Model.Status</div>
+    </div>
+</div>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-versatto waves-effect"><i class="material-icons left">edit</i>Editar</a>
+<a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>

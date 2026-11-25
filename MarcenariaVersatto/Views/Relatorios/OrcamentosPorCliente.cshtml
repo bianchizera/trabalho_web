@@ -1,0 +1,64 @@
+@model IEnumerable<MarcenariaVersatto.ViewModels.OrcamentoClienteLinha>
+@{ ViewData["Title"] = "Orçamentos por cliente"; }
+
+<div class="page-title"><i class="material-icons left">request_quote</i>Orçamentos e Pagamentos por Cliente</div>
+
+<div class="card-versatto">
+    <form method="get" asp-action="OrcamentosPorCliente">
+        <div class="row filtro-row" style="margin-bottom:0">
+            <div class="input-field col s12 m3">
+                <label for="status">Status do orçamento</label><br>
+                <select id="status" name="status" asp-items="ViewBag.f_status"><option value="">Todos</option></select>
+            </div>
+            <div class="input-field col s12 m2">
+                <input type="date" id="de" name="de" value="@ViewBag.f_de" />
+                <label for="de" class="active">De</label>
+            </div>
+            <div class="input-field col s12 m2">
+                <input type="date" id="ate" name="ate" value="@ViewBag.f_ate" />
+                <label for="ate" class="active">Até</label>
+            </div>
+            <div class="col s12 m5 filtro-acoes">
+                <button type="submit" class="btn btn-versatto waves-effect"><i class="material-icons left">search</i>Filtrar</button>
+                <a asp-action="OrcamentosPorCliente" class="btn grey waves-effect" style="margin-left:8px">Limpar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead>
+            <tr><th>Cliente</th><th>Orçamentos</th><th>Total orçado</th><th>Total aprovado</th><th>Total pago</th><th>A receber</th></tr>
+        </thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="6" class="center grey-text">Nenhum orçamento encontrado para os filtros informados.</td></tr>
+}
+else
+{
+    foreach (var r in Model)
+    {
+            <tr>
+                <td>@r.Cliente</td>
+                <td>@r.NumOrcamentos</td>
+                <td>@r.TotalOrcado.ToString("C2")</td>
+                <td>@r.TotalAprovado.ToString("C2")</td>
+                <td>@r.TotalPago.ToString("C2")</td>
+                <td class="@(r.AReceber > 0 ? "estoque-baixo" : "")">@r.AReceber.ToString("C2")</td>
+            </tr>
+    }
+            <tr class="linha-total">
+                <td>TOTAL (@Model.Count() clientes)</td>
+                <td>@Model.Sum(r => r.NumOrcamentos)</td>
+                <td>@Model.Sum(r => r.TotalOrcado).ToString("C2")</td>
+                <td>@Model.Sum(r => r.TotalAprovado).ToString("C2")</td>
+                <td>@Model.Sum(r => r.TotalPago).ToString("C2")</td>
+                <td>@Model.Sum(r => r.AReceber).ToString("C2")</td>
+            </tr>
+}
+        </tbody>
+    </table>
+</div>
+<p class="grey-text" style="font-size:.85rem">"A receber" = total aprovado menos pagamentos com status "pago".</p>

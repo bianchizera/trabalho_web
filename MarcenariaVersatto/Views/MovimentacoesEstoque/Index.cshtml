@@ -1,0 +1,80 @@
+@model IEnumerable<MovimentacaoEstoque>
+@{ ViewData["Title"] = "Movimentações de estoque"; }
+
+<div class="page-title"><i class="material-icons left">swap_vert</i>Movimentações de Estoque</div>
+<div class="card-versatto">
+    <form method="get" asp-action="Index">
+        <div class="row filtro-row" style="margin-bottom:0">
+            <div class="input-field col s12 m3">
+                <label for="materialId">Material</label><br>
+                <select id="materialId" name="materialId" asp-items="ViewBag.f_material"><option value="">Todos</option></select>
+            </div>
+            <div class="input-field col s12 m2">
+                <label for="tipo">Tipo</label><br>
+                <select id="tipo" name="tipo" asp-items="ViewBag.f_tipo"><option value="">Todos</option></select>
+            </div>
+            <div class="input-field col s12 m3">
+                <label for="funcionarioId">Funcionário</label><br>
+                <select id="funcionarioId" name="funcionarioId" asp-items="ViewBag.f_funcionario"><option value="">Todos</option></select>
+            </div>
+            <div class="input-field col s12 m2">
+                <input type="date" id="de" name="de" value="@ViewBag.f_de" />
+                <label for="de" class="active">De</label>
+            </div>
+            <div class="input-field col s12 m2">
+                <input type="date" id="ate" name="ate" value="@ViewBag.f_ate" />
+                <label for="ate" class="active">Até</label>
+            </div>
+            <div class="col s12 filtro-acoes linha">
+                <button type="submit" class="btn btn-versatto waves-effect"><i class="material-icons left">search</i>Filtrar</button>
+                <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px">Limpar</a>
+            </div>
+        </div>
+    </form>
+    <div class="row valign-wrapper" style="margin-bottom:0"><div class="col s12 right-align">
+        <a asp-action="Create" asp-route-tipo="entrada" class="btn btn-versatto waves-effect"><i class="material-icons left">south_west</i>Registrar Entrada</a>
+        <a asp-action="Create" asp-route-tipo="saida" class="btn btn-amarelo waves-effect" style="margin-left:8px"><i class="material-icons left">north_east</i>Registrar Saída</a>
+    </div></div>
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead>
+            <tr><th>Data</th><th>Material</th><th>Tipo</th><th>Quantidade</th><th>Funcionário</th><th>Fornecedor</th><th>Motivo</th><th class="center">Ações</th></tr>
+        </thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="8" class="center grey-text">Nenhuma movimentação encontrada.</td></tr>
+}
+else
+{
+    foreach (var item in Model)
+    {
+            <tr>
+                <td>@item.DataMovimentacao.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@item.Material?.Nome</td>
+                <td>
+                    @if (item.Tipo == "entrada")
+                    {
+                        <span style="color:#2e7d32;font-weight:bold">Entrada</span>
+                    }
+                    else
+                    {
+                        <span style="color:#c62828;font-weight:bold">Saída</span>
+                    }
+                </td>
+                <td>@item.Quantidade</td>
+                <td>@item.Funcionario?.Nome</td>
+                <td>@(item.Fornecedor?.RazaoSocial ?? "-")</td>
+                <td>@item.Motivo</td>
+                <td class="center" style="white-space:nowrap">
+                    <a class="btn-floating btn-small waves-effect blue tooltipped" data-tooltip="Detalhes" asp-action="Details" asp-route-id="@item.Id"><i class="material-icons">info</i></a>
+                    @if (User.IsInRole(Perfis.Admin)) { <a class="btn-floating btn-small waves-effect red tooltipped" data-tooltip="Excluir" asp-action="Delete" asp-route-id="@item.Id"><i class="material-icons">delete</i></a> }
+                </td>
+            </tr>
+    }
+}
+        </tbody>
+    </table>
+</div>

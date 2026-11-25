@@ -1,0 +1,36 @@
+@model IEnumerable<MarcenariaVersatto.ViewModels.CategoriaResumoLinha>
+@{ ViewData["Title"] = "Materiais por categoria"; }
+
+<div class="page-title"><i class="material-icons left">category</i>Materiais por Categoria</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead>
+            <tr><th>Categoria</th><th>Qtd. de materiais</th><th>Abaixo do mínimo</th><th>Valor em estoque</th></tr>
+        </thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="4" class="center grey-text">Nenhum material cadastrado.</td></tr>
+}
+else
+{
+    foreach (var r in Model)
+    {
+            <tr>
+                <td>@r.Categoria</td>
+                <td>@r.QtdMateriais</td>
+                <td class="@(r.AbaixoDoMinimo > 0 ? "estoque-baixo" : "")">@r.AbaixoDoMinimo</td>
+                <td>@r.ValorEmEstoque.ToString("C2")</td>
+            </tr>
+    }
+            <tr class="linha-total">
+                <td>TOTAL</td>
+                <td>@Model.Sum(r => r.QtdMateriais)</td>
+                <td>@Model.Sum(r => r.AbaixoDoMinimo)</td>
+                <td>@Model.Sum(r => r.ValorEmEstoque).ToString("C2")</td>
+            </tr>
+}
+        </tbody>
+    </table>
+</div>

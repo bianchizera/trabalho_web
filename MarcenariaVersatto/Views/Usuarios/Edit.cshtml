@@ -1,0 +1,50 @@
+@model MarcenariaVersatto.ViewModels.UsuarioEditViewModel
+@{ ViewData["Title"] = "Editar usuário"; }
+
+<div class="page-title"><i class="material-icons left">edit</i>Editar Usuário — @Model.Login</div>
+<div class="card-versatto">
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="alerta-erro"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="col s12 m6"><strong>Funcionário:</strong> @Model.NomeFuncionario</div>
+            <div class="col s12 m6"><strong>Login:</strong> @Model.Login</div>
+        </div>
+        <div class="row" style="margin-top:16px">
+            <div class="input-field col s12 m6">
+                <label asp-for="Perfil">Perfil de acesso *</label><br>
+                <select asp-for="Perfil" asp-items="ViewBag.Perfil"></select>
+                <span asp-validation-for="Perfil" class="helper-text"></span>
+            </div>
+            <div class="col s12 m6" style="padding-top:18px">
+                <label>
+                    <input type="checkbox" class="filled-in" asp-for="Ativo" />
+                    <span>Usuário ativo (pode entrar no sistema)</span>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">lock</i>
+                <input asp-for="NovaSenha" type="password" autocomplete="new-password" />
+                <label asp-for="NovaSenha">Nova senha (deixe em branco para manter)</label>
+                <span asp-validation-for="NovaSenha" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">lock_outline</i>
+                <input asp-for="ConfirmarNovaSenha" type="password" autocomplete="new-password" />
+                <label asp-for="ConfirmarNovaSenha">Confirmar nova senha</label>
+                <span asp-validation-for="ConfirmarNovaSenha" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button class="btn btn-versatto waves-effect" type="submit"><i class="material-icons left">save</i>Salvar</button>
+                <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

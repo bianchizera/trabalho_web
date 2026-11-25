@@ -1,0 +1,65 @@
+@model IEnumerable<Orcamento>
+@{ ViewData["Title"] = "Orçamentos"; }
+
+<div class="page-title"><i class="material-icons left">request_quote</i>Orçamentos</div>
+<div class="card-versatto">
+    <form method="get" asp-action="Index">
+        <div class="row filtro-row" style="margin-bottom:0">
+            <div class="input-field col s12 m4">
+                <label for="clienteId">Cliente</label><br>
+                <select id="clienteId" name="clienteId" asp-items="ViewBag.f_cliente"><option value="">Todos</option></select>
+            </div>
+            <div class="input-field col s12 m2">
+                <label for="status">Status</label><br>
+                <select id="status" name="status" asp-items="ViewBag.f_status"><option value="">Todos</option></select>
+            </div>
+            <div class="input-field col s12 m2">
+                <input type="date" id="de" name="de" value="@ViewBag.f_de" />
+                <label for="de" class="active">De</label>
+            </div>
+            <div class="input-field col s12 m2">
+                <input type="date" id="ate" name="ate" value="@ViewBag.f_ate" />
+                <label for="ate" class="active">Até</label>
+            </div>
+            <div class="col s12 filtro-acoes linha">
+                <button type="submit" class="btn btn-versatto waves-effect"><i class="material-icons left">search</i>Filtrar</button>
+                <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px">Limpar</a>
+            </div>
+        </div>
+    </form>
+    <div class="row valign-wrapper" style="margin-bottom:0"><div class="col s12 right-align">
+        <a asp-action="Create" class="btn btn-amarelo waves-effect"><i class="material-icons left">add</i>Novo Orçamento</a>
+    </div></div>
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead><tr><th>#</th><th>Cliente</th><th>Data</th><th>Materiais</th><th>Mão de obra</th><th>Total</th><th>Status</th><th class="center">Ações</th></tr></thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="8" class="center grey-text">Nenhum orçamento encontrado.</td></tr>
+}
+else
+{
+    foreach (var item in Model)
+    {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Cliente?.Nome</td>
+                <td>@item.DataOrcamento.ToShortDateString()</td>
+                <td>@item.ValorMateriais.ToString("C2")</td>
+                <td>@item.ValorMaoObra.ToString("C2")</td>
+                <td>@item.ValorTotal.ToString("C2")</td>
+                <td>@item.Status</td>
+                <td class="center" style="white-space:nowrap">
+                    <a class="btn-floating btn-small waves-effect blue tooltipped" data-tooltip="Detalhes" asp-action="Details" asp-route-id="@item.Id"><i class="material-icons">info</i></a>
+                    <a class="btn-floating btn-small waves-effect orange tooltipped" data-tooltip="Editar" asp-action="Edit" asp-route-id="@item.Id"><i class="material-icons">edit</i></a>
+                    <a class="btn-floating btn-small waves-effect red tooltipped" data-tooltip="Excluir" asp-action="Delete" asp-route-id="@item.Id"><i class="material-icons">delete</i></a>
+                </td>
+            </tr>
+    }
+}
+        </tbody>
+    </table>
+</div>

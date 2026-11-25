@@ -1,0 +1,62 @@
+@model IEnumerable<Cliente>
+@{ ViewData["Title"] = "Clientes"; }
+
+<div class="page-title"><i class="material-icons left">people</i>Clientes</div>
+
+<div class="card-versatto">
+    <form method="get" asp-action="Index">
+        <div class="row filtro-row" style="margin-bottom:0">
+            <div class="input-field col s12 m4">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="nome" name="nome" value="@ViewBag.f_nome" />
+                <label for="nome">Nome</label>
+            </div>
+            <div class="input-field col s12 m3">
+                <i class="material-icons prefix">location_city</i>
+                <input type="text" id="cidade" name="cidade" value="@ViewBag.f_cidade" />
+                <label for="cidade">Cidade</label>
+            </div>
+            <div class="input-field col s12 m2">
+                <label for="tipo">Tipo</label><br>
+                <select id="tipo" name="tipo" asp-items="ViewBag.f_tipo"><option value="">Todos</option></select>
+            </div>
+            <partial name="_FiltroAcoes" />
+        </div>
+    </form>
+    <div class="row valign-wrapper" style="margin-bottom:0"><div class="col s12 right-align">
+        <a asp-action="Create" class="btn btn-amarelo waves-effect"><i class="material-icons left">add</i>Novo Cliente</a>
+    </div></div>
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead>
+            <tr><th>#</th><th>Nome</th><th>Tipo</th><th>CPF/CNPJ</th><th>Telefone</th><th>Cidade</th><th class="center">Ações</th></tr>
+        </thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="7" class="center grey-text">Nenhum cliente encontrado.</td></tr>
+}
+else
+{
+    foreach (var item in Model)
+    {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nome</td>
+                <td>@(item.TipoPessoa == "F" ? "Física" : "Jurídica")</td>
+                <td>@item.CpfCnpj</td>
+                <td>@item.Telefone</td>
+                <td>@item.Cidade</td>
+                <td class="center" style="white-space:nowrap">
+                    <a class="btn-floating btn-small waves-effect blue tooltipped" data-tooltip="Detalhes" asp-action="Details" asp-route-id="@item.Id"><i class="material-icons">info</i></a>
+                    <a class="btn-floating btn-small waves-effect orange tooltipped" data-tooltip="Editar" asp-action="Edit" asp-route-id="@item.Id"><i class="material-icons">edit</i></a>
+                    <a class="btn-floating btn-small waves-effect red tooltipped" data-tooltip="Excluir" asp-action="Delete" asp-route-id="@item.Id"><i class="material-icons">delete</i></a>
+                </td>
+            </tr>
+    }
+}
+        </tbody>
+    </table>
+</div>

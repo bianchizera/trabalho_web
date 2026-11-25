@@ -1,0 +1,324 @@
+:root {
+  --azul: #1a3a6b;
+  --azul-claro: #2a5298;
+  --amarelo: #f5c842;
+  --amarelo-leve: #fff9e0;
+  --cinza: #607d8b;
+  --cinza-claro: #eceff1;
+  --cinza-medio: #b0bec5;
+}
+
+body {
+  background-color: var(--cinza-claro);
+  font-family: "Roboto", sans-serif;
+}
+
+nav.versatto-nav {
+  background-color: var(--azul) !important;
+}
+nav.versatto-nav .brand-logo img {
+  height: 56px;
+  padding: 4px;
+}
+nav.versatto-nav ul li a {
+  color: #fff !important;
+  font-weight: 500;
+}
+nav.versatto-nav ul li a:hover {
+  background-color: var(--azul-claro) !important;
+}
+
+.sidenav {
+  background-color: #1c2b4a;
+}
+.sidenav li > a {
+  color: #e0e8f5 !important;
+}
+.sidenav li > a:hover {
+  background-color: var(--azul-claro) !important;
+}
+.sidenav .user-view {
+  background-color: var(--azul);
+  padding: 20px;
+}
+
+.card-versatto {
+  background: #fff;
+  border-top: 4px solid var(--amarelo);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.page-title {
+  background: var(--azul);
+  color: #fff;
+  padding: 10px 20px;
+  border-left: 6px solid var(--amarelo);
+  border-radius: 3px;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+}
+
+table.versatto-table thead {
+  background-color: var(--azul);
+  color: #fff;
+}
+table.versatto-table thead th {
+  padding: 10px 14px;
+}
+table.versatto-table tbody tr:nth-child(even) {
+  background-color: var(--amarelo-leve);
+}
+table.versatto-table tbody tr:hover {
+  background-color: #dce9ff;
+}
+table.versatto-table tbody td {
+  padding: 8px 14px;
+  vertical-align: middle;
+}
+
+.btn-versatto {
+  background-color: var(--azul) !important;
+}
+.btn-versatto:hover {
+  background-color: var(--azul-claro) !important;
+}
+.btn-amarelo {
+  background-color: var(--amarelo) !important;
+  color: #333 !important;
+}
+.btn-amarelo:hover {
+  background-color: #e0b020 !important;
+}
+
+.input-field input:focus + label,
+.input-field input.valid + label {
+  color: var(--azul) !important;
+}
+.input-field input:focus {
+  border-bottom: 1px solid var(--azul) !important;
+  box-shadow: 0 1px 0 0 var(--azul) !important;
+}
+
+.alerta-erro {
+  background: #ffebee;
+  color: #c62828;
+  padding: 10px 16px;
+  border-left: 4px solid #c62828;
+  border-radius: 3px;
+  margin-bottom: 14px;
+}
+.alerta-ok {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 10px 16px;
+  border-left: 4px solid #2e7d32;
+  border-radius: 3px;
+  margin-bottom: 14px;
+}
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--azul) 60%, var(--azul-claro));
+}
+.login-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 40px;
+  width: 380px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+.login-card img {
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 200px;
+}
+
+.home-hero {
+  background: linear-gradient(135deg, var(--azul) 50%, var(--azul-claro));
+  color: #fff;
+  padding: 60px 40px;
+  border-radius: 6px;
+  text-align: center;
+}
+.home-hero img {
+  max-width: 220px;
+  border-radius: 8px;
+}
+.home-cards .card-icon {
+  font-size: 3rem;
+  color: var(--amarelo);
+}
+
+#tabela-itens {
+  margin-top: 16px;
+}
+#tabela-itens th {
+  background: var(--azul);
+  color: #fff;
+  padding: 8px;
+}
+#tabela-itens td {
+  padding: 6px;
+}
+.total-box {
+  background: var(--azul);
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  text-align: right;
+}
+
+.estoque-baixo {
+  color: #c62828;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .card-versatto {
+    padding: 14px;
+  }
+  .login-card {
+    width: 95vw;
+    padding: 24px;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body > .container {
+  flex: 1 0 auto;
+}
+
+.row.home-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+.row.home-cards > .col {
+    float: none;      
+    display: flex;
+}
+.row.home-cards .card-versatto {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.row.home-cards .card-versatto p {
+    flex: 1 0 auto;    
+}
+
+.versatto-logout-form {
+    display: inline;
+}
+.versatto-logout-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    height: 64px;
+    line-height: 64px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.versatto-user {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 15px;
+    color: inherit;
+}
+
+.input-field input[type="date"] + label {
+    transform: translateY(-14px) scale(0.8);
+    transform-origin: 0 0;
+}
+
+.input-field input[type="date"] {
+    margin-top: 20px;
+}
+
+/* Filtros nas telas de listagem: campos e botões alinhados pela base (linha do campo) */
+.row.filtro-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+.row.filtro-row > .col {
+    float: none;
+}
+.filtro-acoes {
+    white-space: nowrap;
+    margin-bottom: 30px;
+}
+.filtro-acoes.linha {
+    margin-bottom: 12px;
+}
+@media (max-width: 600px) {
+    .filtro-acoes {
+        margin-bottom: 12px;
+    }
+}
+
+/* Linha de totais dos relatórios */
+table.versatto-table tr.linha-total td {
+    background-color: var(--azul);
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Itens do menu suspenso */
+nav.versatto-nav ul.dropdown-content li > a {
+    color: var(--azul) !important;
+    font-size: .95rem;
+    padding: 0 18px;
+}
+nav.versatto-nav ul.dropdown-content li > a:hover {
+    background-color: var(--cinza-claro) !important;
+    color: var(--azul) !important;
+}
+nav.versatto-nav ul.dropdown-content {
+    background-color: #fff;
+}
+
+/* Barra superior: igual à original; abaixo de 1200px usa o menu lateral para não encostar no logo */
+@media only screen and (max-width: 1200px) {
+    nav.versatto-nav ul.right.hide-on-med-and-down { display: none !important; }
+    nav.versatto-nav .sidenav-trigger { display: block !important; }
+    nav.versatto-nav .brand-logo { left: 50%; transform: translateX(-50%); }
+}
+
+/* Alinhamento dos campos: texto, select e data ficam na mesma linha base */
+.input-field > br {
+    display: none;
+}
+.input-field:has(select) > label {
+    transform: translateY(-14px) scale(0.8);
+    transform-origin: 0 0;
+}
+.input-field .helper-text {
+    min-height: 0;
+}
+.input-field input[type="date"] {
+    margin-top: 0;
+}
+.input-field:has(input[type="date"]) > label {
+    transform: translateY(-14px) scale(0.8) !important;
+    transform-origin: 0 0;
+}

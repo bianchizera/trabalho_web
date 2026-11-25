@@ -1,0 +1,13 @@
+@model MovimentacaoEstoque
+@{ ViewData["Title"] = "Excluir movimentação"; }
+
+<div class="page-title"><i class="material-icons left">delete</i>Excluir Movimentação</div>
+<div class="card-versatto">
+    <p>Confirma a exclusão da movimentação de <strong>@Model.Material?.Nome</strong> (@Model.Tipo, @Model.Quantidade)?</p>
+    <div class="alerta-erro">Atenção: isso não desfaz o ajuste de estoque já aplicado pelo trigger do banco.</div>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn red waves-effect"><i class="material-icons left">delete</i>Confirmar exclusão</button>
+        <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px">Cancelar</a>
+    </form>
+</div>

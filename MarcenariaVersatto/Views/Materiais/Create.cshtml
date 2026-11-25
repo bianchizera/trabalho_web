@@ -1,0 +1,64 @@
+@model Material
+@{ ViewData["Title"] = "Novo material"; }
+
+<div class="page-title"><i class="material-icons left">add</i>Novo Material</div>
+<div class="card-versatto">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="alerta-erro"></div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">inventory_2</i>
+                <input asp-for="Nome" maxlength="150" />
+                <label asp-for="Nome">Nome *</label>
+                <span asp-validation-for="Nome" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m3">
+                <label asp-for="CategoriaId">Categoria</label><br>
+                <select asp-for="CategoriaId" asp-items="ViewBag.CategoriaId"></select>
+                <span asp-validation-for="CategoriaId" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m3">
+                <label asp-for="FornecedorPadraoId">Fornecedor padrão</label><br>
+                <select asp-for="FornecedorPadraoId" asp-items="ViewBag.FornecedorPadraoId">
+                    <option value=""> nenhum </option>
+                </select>
+                <span asp-validation-for="FornecedorPadraoId" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m3">
+                <i class="material-icons prefix">straighten</i>
+                <input asp-for="UnidadeMedida" maxlength="10" placeholder="UN, KG, M2..." />
+                <label asp-for="UnidadeMedida">Unidade *</label>
+                <span asp-validation-for="UnidadeMedida" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m3">
+                <i class="material-icons prefix">warning</i>
+                <input asp-for="EstoqueMinimo" type="number" step="0.01" />
+                <label asp-for="EstoqueMinimo">Estoque mínimo</label>
+                <span asp-validation-for="EstoqueMinimo" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m3">
+                <i class="material-icons prefix">inventory</i>
+                <input asp-for="EstoqueAtual" type="number" step="0.01" />
+                <label asp-for="EstoqueAtual">Estoque atual</label>
+                <span asp-validation-for="EstoqueAtual" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m3">
+                <i class="material-icons prefix">attach_money</i>
+                <input asp-for="ValorUnitario" type="number" step="0.01" />
+                <label asp-for="ValorUnitario">Valor unitário</label>
+                <span asp-validation-for="ValorUnitario" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button class="btn btn-versatto waves-effect" type="submit"><i class="material-icons left">save</i>Salvar</button>
+                <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

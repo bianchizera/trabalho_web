@@ -1,0 +1,49 @@
+@model IEnumerable<CategoriaMaterial>
+@{ ViewData["Title"] = "Categorias de material"; }
+
+<div class="page-title"><i class="material-icons left">category</i>Categorias de Material</div>
+<div class="card-versatto">
+    <form method="get" asp-action="Index">
+        <div class="row filtro-row" style="margin-bottom:0">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="nome" name="nome" value="@ViewBag.f_nome" />
+                <label for="nome">Nome</label>
+            </div>
+            <partial name="_FiltroAcoes" />
+        </div>
+    </form>
+    @if (User.IsInRole(Perfis.Admin))
+    {
+        <div class="row valign-wrapper" style="margin-bottom:0"><div class="col s12 right-align">
+            <a asp-action="Create" class="btn btn-amarelo waves-effect"><i class="material-icons left">add</i>Nova Categoria</a>
+        </div></div>
+    }
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead><tr><th>#</th><th>Nome</th><th class="center">Ações</th></tr></thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="3" class="center grey-text">Nenhuma categoria encontrada.</td></tr>
+}
+else
+{
+    foreach (var item in Model)
+    {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nome</td>
+                <td class="center" style="white-space:nowrap">
+                    <a class="btn-floating btn-small waves-effect blue tooltipped" data-tooltip="Detalhes" asp-action="Details" asp-route-id="@item.Id"><i class="material-icons">info</i></a>
+                    @if (User.IsInRole(Perfis.Admin)) { <a class="btn-floating btn-small waves-effect orange tooltipped" data-tooltip="Editar" asp-action="Edit" asp-route-id="@item.Id"><i class="material-icons">edit</i></a> }
+                    @if (User.IsInRole(Perfis.Admin)) { <a class="btn-floating btn-small waves-effect red tooltipped" data-tooltip="Excluir" asp-action="Delete" asp-route-id="@item.Id"><i class="material-icons">delete</i></a> }
+                </td>
+            </tr>
+    }
+}
+        </tbody>
+    </table>
+</div>

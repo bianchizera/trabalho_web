@@ -1,0 +1,53 @@
+@model IEnumerable<MarcenariaVersatto.ViewModels.MesResumoLinha>
+@{ ViewData["Title"] = "Movimentações por mês"; }
+
+<div class="page-title"><i class="material-icons left">calendar_month</i>Movimentações de Estoque por Mês</div>
+
+<div class="card-versatto">
+    <form method="get" asp-action="MovimentacoesPorMes">
+        <div class="row filtro-row" style="margin-bottom:0">
+            <div class="input-field col s12 m3">
+                <label for="ano">Ano</label><br>
+                <select id="ano" name="ano" asp-items="ViewBag.f_ano"><option value="">Todos</option></select>
+            </div>
+            <div class="col s12 m5 filtro-acoes">
+                <button type="submit" class="btn btn-versatto waves-effect"><i class="material-icons left">search</i>Filtrar</button>
+                <a asp-action="MovimentacoesPorMes" class="btn grey waves-effect" style="margin-left:8px">Limpar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead>
+            <tr><th>Mês</th><th>Nº de entradas</th><th>Nº de saídas</th><th>Valor das entradas</th><th>Valor das saídas</th></tr>
+        </thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="5" class="center grey-text">Nenhuma movimentação encontrada.</td></tr>
+}
+else
+{
+    foreach (var r in Model)
+    {
+            <tr>
+                <td>@r.Rotulo</td>
+                <td>@r.NumEntradas</td>
+                <td>@r.NumSaidas</td>
+                <td>@r.ValorEntradas.ToString("C2")</td>
+                <td>@r.ValorSaidas.ToString("C2")</td>
+            </tr>
+    }
+            <tr class="linha-total">
+                <td>TOTAL</td>
+                <td>@Model.Sum(r => r.NumEntradas)</td>
+                <td>@Model.Sum(r => r.NumSaidas)</td>
+                <td>@Model.Sum(r => r.ValorEntradas).ToString("C2")</td>
+                <td>@Model.Sum(r => r.ValorSaidas).ToString("C2")</td>
+            </tr>
+}
+        </tbody>
+    </table>
+</div>

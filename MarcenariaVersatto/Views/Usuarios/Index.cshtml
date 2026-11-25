@@ -1,0 +1,60 @@
+@model IEnumerable<Usuario>
+@{ ViewData["Title"] = "Usuários e permissões"; }
+
+<div class="page-title"><i class="material-icons left">admin_panel_settings</i>Usuários e Permissões</div>
+
+<div class="card-versatto">
+    <form method="get" asp-action="Index">
+        <div class="row filtro-row" style="margin-bottom:0">
+            <div class="input-field col s12 m4">
+                <i class="material-icons prefix">search</i>
+                <input type="text" id="login" name="login" value="@ViewBag.f_login" />
+                <label for="login">Login ou funcionário</label>
+            </div>
+            <div class="input-field col s12 m2">
+                <label for="perfil">Perfil</label><br>
+                <select id="perfil" name="perfil" asp-items="ViewBag.f_perfil"><option value="">Todos</option></select>
+            </div>
+            <div class="input-field col s12 m3">
+                <label for="situacao">Situação</label><br>
+                <select id="situacao" name="situacao" asp-items="ViewBag.f_situacao"><option value="">Todas</option></select>
+            </div>
+            <partial name="_FiltroAcoes" />
+        </div>
+    </form>
+    <div class="row valign-wrapper" style="margin-bottom:0"><div class="col s12 right-align">
+        <a asp-action="Create" class="btn btn-amarelo waves-effect"><i class="material-icons left">add</i>Novo Usuário</a>
+    </div></div>
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead>
+            <tr><th>#</th><th>Login</th><th>Funcionário</th><th>Perfil</th><th>Situação</th><th>Último acesso</th><th class="center">Ações</th></tr>
+        </thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="7" class="center grey-text">Nenhum usuário encontrado.</td></tr>
+}
+else
+{
+    foreach (var item in Model)
+    {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Login</td>
+                <td>@item.Funcionario?.Nome</td>
+                <td>@Perfis.Rotulo(item.Perfil)</td>
+                <td>@(item.Ativo ? "Ativo" : "Inativo")</td>
+                <td>@(item.UltimoAcesso?.ToString("dd/MM/yyyy HH:mm") ?? "-")</td>
+                <td class="center" style="white-space:nowrap">
+                    <a class="btn-floating btn-small waves-effect orange tooltipped" data-tooltip="Editar" asp-action="Edit" asp-route-id="@item.Id"><i class="material-icons">edit</i></a>
+                    <a class="btn-floating btn-small waves-effect red tooltipped" data-tooltip="Excluir" asp-action="Delete" asp-route-id="@item.Id"><i class="material-icons">delete</i></a>
+                </td>
+            </tr>
+    }
+}
+        </tbody>
+    </table>
+</div>

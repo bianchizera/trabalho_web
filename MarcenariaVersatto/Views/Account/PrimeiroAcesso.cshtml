@@ -1,0 +1,56 @@
+@model MarcenariaVersatto.ViewModels.PrimeiroAcessoViewModel
+@{
+    ViewData["Title"] = "Primeiro acesso";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Primeiro acesso - Versatto</title>
+    <style>
+        body { background: linear-gradient(135deg, #1a3a6b, #2a5599); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-card { background: white; border-radius: 8px; padding: 32px 40px; width: 400px; max-width: 95vw; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+        .login-card img { max-width: 180px; border-radius: 8px; display: block; margin: 0 auto 10px; }
+        .btn-versatto-login { background-color: #1a3a6b; width: 100%; }
+        .btn-versatto-login:hover { background-color: #2a5599; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <img src="~/images/logo-fundo.jpeg" alt="Versatto">
+        <h5 class="center" style="font-size:1.3rem">Criar administrador</h5>
+        <p class="center grey-text" style="font-size:.85rem">Esta tela só aparece enquanto não existe nenhum usuário.</p>
+        <form method="post" asp-action="PrimeiroAcesso">
+            <div asp-validation-summary="ModelOnly" class="red-text"></div>
+            <div class="input-field">
+                <input asp-for="Nome" maxlength="150" />
+                <label asp-for="Nome"></label>
+                <span asp-validation-for="Nome" class="helper-text red-text"></span>
+            </div>
+            <div class="input-field">
+                <input asp-for="Login" maxlength="50" />
+                <label asp-for="Login"></label>
+                <span asp-validation-for="Login" class="helper-text red-text"></span>
+            </div>
+            <div class="input-field">
+                <input asp-for="Senha" type="password" />
+                <label asp-for="Senha"></label>
+                <span asp-validation-for="Senha" class="helper-text red-text"></span>
+            </div>
+            <div class="input-field">
+                <input asp-for="ConfirmarSenha" type="password" />
+                <label asp-for="ConfirmarSenha"></label>
+                <span asp-validation-for="ConfirmarSenha" class="helper-text red-text"></span>
+            </div>
+            <button type="submit" class="btn btn-versatto-login">Criar administrador</button>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>M.updateTextFields();</script>
+</body>
+</html>

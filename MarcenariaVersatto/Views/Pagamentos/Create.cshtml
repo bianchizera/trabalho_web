@@ -1,0 +1,49 @@
+@model Pagamento
+@{ ViewData["Title"] = "Novo pagamento"; }
+
+<div class="page-title"><i class="material-icons left">add</i>Novo Pagamento</div>
+<div class="card-versatto">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="alerta-erro"></div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <label asp-for="OrcamentoId">Orçamento *</label><br>
+                <select asp-for="OrcamentoId" asp-items="ViewBag.OrcamentoId"></select>
+                <span asp-validation-for="OrcamentoId" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">attach_money</i>
+                <input asp-for="Valor" type="number" step="0.01" />
+                <label asp-for="Valor">Valor *</label>
+                <span asp-validation-for="Valor" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m4">
+                <label asp-for="FormaPagamento">Forma de pagamento *</label><br>
+                <select asp-for="FormaPagamento" asp-items="ViewBag.FormaPagamento"></select>
+                <span asp-validation-for="FormaPagamento" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m4">
+                <i class="material-icons prefix">event</i>
+                <input asp-for="DataPagamento" type="date" />
+                <label asp-for="DataPagamento">Data do pagamento</label>
+                <span asp-validation-for="DataPagamento" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m4">
+                <label asp-for="Status">Status</label><br>
+                <select asp-for="Status" asp-items="ViewBag.Status"></select>
+                <span asp-validation-for="Status" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button class="btn btn-versatto waves-effect" type="submit"><i class="material-icons left">save</i>Salvar</button>
+                <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,65 @@
+@model IEnumerable<MarcenariaVersatto.ViewModels.MovimentoMaterialLinha>
+@{ ViewData["Title"] = "Movimento por material"; }
+
+<div class="page-title"><i class="material-icons left">swap_vert</i>Movimento de Estoque por Material</div>
+
+<div class="card-versatto">
+    <form method="get" asp-action="MovimentoPorMaterial">
+        <div class="row filtro-row" style="margin-bottom:0">
+            <div class="input-field col s12 m3">
+                <label for="categoriaId">Categoria</label><br>
+                <select id="categoriaId" name="categoriaId" asp-items="ViewBag.f_categoria"><option value="">Todas</option></select>
+            </div>
+            <div class="input-field col s12 m2">
+                <input type="date" id="de" name="de" value="@ViewBag.f_de" />
+                <label for="de" class="active">De</label>
+            </div>
+            <div class="input-field col s12 m2">
+                <input type="date" id="ate" name="ate" value="@ViewBag.f_ate" />
+                <label for="ate" class="active">Até</label>
+            </div>
+            <div class="col s12 m5 filtro-acoes">
+                <button type="submit" class="btn btn-versatto waves-effect"><i class="material-icons left">search</i>Filtrar</button>
+                <a asp-action="MovimentoPorMaterial" class="btn grey waves-effect" style="margin-left:8px">Limpar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table responsive-table">
+        <thead>
+            <tr><th>Categoria</th><th>Material</th><th>Mov.</th><th>Entradas</th><th>Saídas</th><th>Saldo do período</th><th>Valor entradas</th><th>Valor saídas</th></tr>
+        </thead>
+        <tbody>
+@if (!Model.Any())
+{
+            <tr><td colspan="8" class="center grey-text">Nenhuma movimentação encontrada para os filtros informados.</td></tr>
+}
+else
+{
+    foreach (var r in Model)
+    {
+            <tr>
+                <td>@r.Categoria</td>
+                <td>@r.Material</td>
+                <td>@r.NumMovimentacoes</td>
+                <td>@r.Entradas.ToString("0.##") @r.Unidade</td>
+                <td>@r.Saidas.ToString("0.##") @r.Unidade</td>
+                <td>@r.Saldo.ToString("0.##") @r.Unidade</td>
+                <td>@r.ValorEntradas.ToString("C2")</td>
+                <td>@r.ValorSaidas.ToString("C2")</td>
+            </tr>
+    }
+            <tr class="linha-total">
+                <td colspan="2">TOTAL (@Model.Count() materiais)</td>
+                <td>@Model.Sum(r => r.NumMovimentacoes)</td>
+                <td colspan="3"></td>
+                <td>@Model.Sum(r => r.ValorEntradas).ToString("C2")</td>
+                <td>@Model.Sum(r => r.ValorSaidas).ToString("C2")</td>
+            </tr>
+}
+        </tbody>
+    </table>
+</div>
+<p class="grey-text" style="font-size:.85rem">Os valores usam o valor unitário atual de cada material. As quantidades não são somadas entre materiais porque as unidades de medida são diferentes.</p>

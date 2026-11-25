@@ -1,0 +1,35 @@
+@model MarcenariaVersatto.ViewModels.DadosDemoResumo
+@{ ViewData["Title"] = "Gerar dados"; }
+
+<div class="page-title"><i class="material-icons left">dataset</i>Geração de Dados</div>
+
+<div class="card-versatto">
+    <p>Gera um conjunto de dados de demonstração nas tabelas (fornecedores, materiais, movimentações de estoque, clientes, orçamentos com itens e pagamentos) para testar os filtros e relatórios.</p>
+    <p class="grey-text">Todo registro gerado começa com <strong>"Demo - "</strong> no nome, e pode ser removido depois pelo botão ao lado, sem afetar os dados reais.</p>
+    <div class="row" style="margin-bottom:0">
+        <form method="post" asp-action="Gerar" class="col s12 m6" style="margin-bottom:10px">
+            <button type="submit" class="btn btn-versatto waves-effect" @(Model.Existe ? "disabled" : "")>
+                <i class="material-icons left">playlist_add</i>Gerar dados de demonstração
+            </button>
+        </form>
+        <form method="post" asp-action="Remover" class="col s12 m6" onsubmit="return confirm('Remover todos os dados de demonstração?');">
+            <button type="submit" class="btn red waves-effect" @(Model.Existe ? "" : "disabled")>
+                <i class="material-icons left">delete_sweep</i>Remover dados de demonstração
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="card-versatto" style="padding:0;overflow-x:auto">
+    <table class="versatto-table">
+        <thead><tr><th>Dados de demonstração existentes</th><th>Quantidade</th></tr></thead>
+        <tbody>
+            <tr><td>Fornecedores</td><td>@Model.Fornecedores</td></tr>
+            <tr><td>Materiais</td><td>@Model.Materiais</td></tr>
+            <tr><td>Movimentações de estoque</td><td>@Model.Movimentacoes</td></tr>
+            <tr><td>Clientes</td><td>@Model.Clientes</td></tr>
+            <tr><td>Orçamentos</td><td>@Model.Orcamentos</td></tr>
+            <tr><td>Pagamentos</td><td>@Model.Pagamentos</td></tr>
+        </tbody>
+    </table>
+</div>

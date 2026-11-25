@@ -1,0 +1,55 @@
+@model Fornecedor
+@{ ViewData["Title"] = "Editar fornecedor"; }
+
+<div class="page-title"><i class="material-icons left">edit</i>Editar Fornecedor</div>
+<div class="card-versatto">
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="alerta-erro"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="input-field col s12 m8">
+                <i class="material-icons prefix">business</i>
+                <input asp-for="RazaoSocial" maxlength="150" />
+                <label asp-for="RazaoSocial" class="active">Razão social *</label>
+                <span asp-validation-for="RazaoSocial" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m4">
+                <i class="material-icons prefix">badge</i>
+                <input asp-for="Cnpj" maxlength="18" />
+                <label asp-for="Cnpj" class="active">CNPJ</label>
+                <span asp-validation-for="Cnpj" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">phone</i>
+                <input asp-for="Telefone" maxlength="20" />
+                <label asp-for="Telefone" class="active">Telefone</label>
+                <span asp-validation-for="Telefone" class="helper-text"></span>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">email</i>
+                <input asp-for="Email" maxlength="150" />
+                <label asp-for="Email" class="active">E-mail</label>
+                <span asp-validation-for="Email" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">home</i>
+                <input asp-for="Endereco" maxlength="255" />
+                <label asp-for="Endereco" class="active">Endereço</label>
+                <span asp-validation-for="Endereco" class="helper-text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button class="btn btn-versatto waves-effect" type="submit"><i class="material-icons left">save</i>Salvar</button>
+                <a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

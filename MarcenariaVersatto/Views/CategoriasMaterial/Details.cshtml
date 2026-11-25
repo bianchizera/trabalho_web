@@ -1,0 +1,6 @@
+@model CategoriaMaterial
+@{ ViewData["Title"] = "Detalhes da categoria"; }
+
+<div class="page-title"><i class="material-icons left">category</i>@Model.Nome</div>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-versatto waves-effect"><i class="material-icons left">edit</i>Editar</a>
+<a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>

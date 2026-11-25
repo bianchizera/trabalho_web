@@ -1,0 +1,16 @@
+@model MovimentacaoEstoque
+@{ ViewData["Title"] = "Detalhes da movimentação"; }
+
+<div class="page-title"><i class="material-icons left">swap_vert</i>Movimentação #@Model.Id</div>
+<div class="card-versatto">
+    <div class="row" style="margin-bottom:0">
+        <div class="col s12 m6"><strong>Material:</strong> @Model.Material?.Nome</div>
+        <div class="col s12 m6"><strong>Tipo:</strong> @(Model.Tipo == "entrada" ? "Entrada" : "Saída")</div>
+        <div class="col s12 m6"><strong>Quantidade:</strong> @Model.Quantidade</div>
+        <div class="col s12 m6"><strong>Data:</strong> @Model.DataMovimentacao</div>
+        <div class="col s12 m6"><strong>Fornecedor:</strong> @(Model.Fornecedor?.RazaoSocial ?? "-")</div>
+        <div class="col s12 m6"><strong>Funcionário responsável:</strong> @Model.Funcionario?.Nome</div>
+        <div class="col s12"><strong>Motivo:</strong> @Model.Motivo</div>
+    </div>
+</div>
+<a asp-action="Index" class="btn grey waves-effect"><i class="material-icons left">arrow_back</i>Voltar</a>

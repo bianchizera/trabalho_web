@@ -1,0 +1,39 @@
+@model IEnumerable<Material>
+@{ ViewData["Title"] = "Alertas de estoque baixo"; }
+
+<div class="page-title"><i class="material-icons left">warning</i>Alertas de Estoque Baixo</div>
+
+@if (!Model.Any())
+{
+    <div class="card-versatto center">
+        <i class="material-icons" style="font-size:3rem;color:#2e7d32">check_circle</i>
+        <h6>Não existem alertas pendentes: todos os materiais estão dentro dos limites definidos.</h6>
+    </div>
+}
+else
+{
+    <div class="alerta-erro"><strong>@Model.Count()</strong> material(is) abaixo do estoque mínimo.</div>
+    <div class="card-versatto" style="padding:0;overflow-x:auto">
+        <table class="versatto-table responsive-table">
+            <thead>
+                <tr><th>Material</th><th>Categoria</th><th>Estoque atual</th><th>Estoque mínimo</th><th>Faltam</th><th>Fornecedor padrão</th><th class="center">Ação</th></tr>
+            </thead>
+            <tbody>
+@foreach (var m in Model)
+{
+                <tr class="estoque-baixo">
+                    <td>@m.Nome</td>
+                    <td>@m.Categoria?.Nome</td>
+                    <td>@m.EstoqueAtual @m.UnidadeMedida</td>
+                    <td>@m.EstoqueMinimo @m.UnidadeMedida</td>
+                    <td>@((m.EstoqueMinimo - m.EstoqueAtual).ToString("0.##")) @m.UnidadeMedida</td>
+                    <td>@(m.FornecedorPadrao?.RazaoSocial ?? "-")</td>
+                    <td class="center">
+                        <a asp-controller="MovimentacoesEstoque" asp-action="Create" asp-route-tipo="entrada" class="btn btn-small btn-amarelo waves-effect">Registrar entrada</a>
+                    </td>
+                </tr>
+}
+            </tbody>
+        </table>
+    </div>
+}

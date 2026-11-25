@@ -1,0 +1,16 @@
+@model Funcionario
+@{ ViewData["Title"] = "Detalhes do funcionário"; }
+
+<div class="page-title"><i class="material-icons left">badge</i>@Model.Nome</div>
+<div class="card-versatto">
+    <div class="row" style="margin-bottom:0">
+        <div class="col s12 m6"><strong>CPF:</strong> @Model.Cpf</div>
+        <div class="col s12 m6"><strong>Cargo:</strong> @Model.Cargo</div>
+        <div class="col s12 m6"><strong>Telefone:</strong> @Model.Telefone</div>
+        <div class="col s12 m6"><strong>E-mail:</strong> @Model.Email</div>
+        <div class="col s12 m6"><strong>Admissão:</strong> @Model.DataAdmissao.ToShortDateString()</div>
+        <div class="col s12 m6"><strong>Ativo:</strong> @(Model.Ativo ? "Sim" : "Não")</div>
+    </div>
+</div>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-versatto waves-effect"><i class="material-icons left">edit</i>Editar</a>
+<a asp-action="Index" class="btn grey waves-effect" style="margin-left:8px"><i class="material-icons left">arrow_back</i>Voltar</a>

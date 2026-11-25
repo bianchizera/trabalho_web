@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css?v=8">
+    <link rel="icon" href="~/images/logo.png" type="image/png">
+    <title>@ViewData["Title"] - Versatto</title>
+</head>
+<body>
+
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view">
+            <img src="~/images/logo.png" style="max-width:160px;border-radius:4px" asp-append-version="true">
+            <br>
+            <span class="white-text name" style="font-weight:bold">Versatto</span><br>
+            <span class="white-text email" style="font-size:.85rem">Móveis Planejados</span>
+        </div>
+    </li>
+    <li><a asp-controller="Home" asp-action="Index" class="white-text"><i class="material-icons">home</i>Home</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader white-text" style="color:#f5c842!important">ESTOQUE</a></li>
+    <li><a asp-controller="MovimentacoesEstoque" asp-action="Create" asp-route-tipo="entrada" class="white-text"><i class="material-icons">south_west</i>Registrar entrada</a></li>
+    <li><a asp-controller="MovimentacoesEstoque" asp-action="Create" asp-route-tipo="saida" class="white-text"><i class="material-icons">north_east</i>Registrar saída</a></li>
+    <li><a asp-controller="MovimentacoesEstoque" asp-action="Index" class="white-text"><i class="material-icons">swap_vert</i>Histórico de movimentações</a></li>
+    <li><a asp-controller="Materiais" asp-action="Index" class="white-text"><i class="material-icons">inventory_2</i>Materiais e saldo</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader white-text" style="color:#f5c842!important">CADASTROS</a></li>
+    <li><a asp-controller="Clientes" asp-action="Index" class="white-text"><i class="material-icons">people</i>Clientes</a></li>
+    <li><a asp-controller="Fornecedores" asp-action="Index" class="white-text"><i class="material-icons">business</i>Fornecedores</a></li>
+    <li><a asp-controller="CategoriasMaterial" asp-action="Index" class="white-text"><i class="material-icons">category</i>Categorias</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader white-text" style="color:#f5c842!important">VENDAS</a></li>
+    <li><a asp-controller="Orcamentos" asp-action="Index" class="white-text"><i class="material-icons">request_quote</i>Orçamentos</a></li>
+    @if (User.IsInRole(Perfis.Admin))
+    {
+        <li><a asp-controller="Pagamentos" asp-action="Index" class="white-text"><i class="material-icons">payments</i>Pagamentos</a></li>
+    }
+    <li><div class="divider"></div></li>
+    <li><a class="subheader white-text" style="color:#f5c842!important">RELATÓRIOS</a></li>
+    @if (User.IsInRole(Perfis.Admin))
+    {
+        <li><a asp-controller="Relatorios" asp-action="Alertas" class="white-text"><i class="material-icons">warning</i>Alertas de estoque baixo</a></li>
+    }
+    <li><a asp-controller="Relatorios" asp-action="MovimentoPorMaterial" class="white-text"><i class="material-icons">bar_chart</i>Movimento por material</a></li>
+    @if (User.IsInRole(Perfis.Admin))
+    {
+        <li><a asp-controller="Relatorios" asp-action="OrcamentosPorCliente" class="white-text"><i class="material-icons">request_quote</i>Orçamentos por cliente</a></li>
+    }
+    <li><a asp-controller="Relatorios" asp-action="MateriaisPorCategoria" class="white-text"><i class="material-icons">category</i>Materiais por categoria</a></li>
+    <li><a asp-controller="Relatorios" asp-action="MovimentacoesPorMes" class="white-text"><i class="material-icons">calendar_month</i>Movimentações por mês</a></li>
+    @if (User.IsInRole(Perfis.Admin))
+    {
+        <li><div class="divider"></div></li>
+        <li><a class="subheader white-text" style="color:#f5c842!important">ADMINISTRAÇÃO</a></li>
+        <li><a asp-controller="Funcionarios" asp-action="Index" class="white-text"><i class="material-icons">badge</i>Funcionários</a></li>
+        <li><a asp-controller="Usuarios" asp-action="Index" class="white-text"><i class="material-icons">admin_panel_settings</i>Usuários e permissões</a></li>
+        <li><a asp-controller="GerarDados" asp-action="Index" class="white-text"><i class="material-icons">dataset</i>Gerar dados</a></li>
+    }
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="#" class="white-text" onclick="document.getElementById('logout-form-side').submit(); return false;"><i class="material-icons">logout</i>Sair (@User.Identity.Name)</a>
+            <form id="logout-form-side" method="post" asp-controller="Account" asp-action="Logout" style="display:none"></form>
+        </li>
+    }
+</ul>
+
+<ul id="dd-estoque" class="dropdown-content">
+    <li><a asp-controller="MovimentacoesEstoque" asp-action="Create" asp-route-tipo="entrada">Registrar entrada</a></li>
+    <li><a asp-controller="MovimentacoesEstoque" asp-action="Create" asp-route-tipo="saida">Registrar saída</a></li>
+    <li><a asp-controller="MovimentacoesEstoque" asp-action="Index">Histórico</a></li>
+    <li><a asp-controller="Materiais" asp-action="Index">Materiais e saldo</a></li>
+    <li><a asp-controller="CategoriasMaterial" asp-action="Index">Categorias</a></li>
+    <li><a asp-controller="Fornecedores" asp-action="Index">Fornecedores</a></li>
+</ul>
+<ul id="dd-vendas" class="dropdown-content">
+    <li><a asp-controller="Clientes" asp-action="Index">Clientes</a></li>
+    <li><a asp-controller="Orcamentos" asp-action="Index">Orçamentos</a></li>
+    @if (User.IsInRole(Perfis.Admin))
+    {
+        <li><a asp-controller="Pagamentos" asp-action="Index">Pagamentos</a></li>
+    }
+</ul>
+<ul id="dd-relatorios" class="dropdown-content">
+    @if (User.IsInRole(Perfis.Admin))
+    {
+        <li><a asp-controller="Relatorios" asp-action="Alertas">Alertas de estoque baixo</a></li>
+    }
+    <li><a asp-controller="Relatorios" asp-action="MovimentoPorMaterial">Movimento por material</a></li>
+    @if (User.IsInRole(Perfis.Admin))
+    {
+        <li><a asp-controller="Relatorios" asp-action="OrcamentosPorCliente">Orçamentos por cliente</a></li>
+    }
+    <li><a asp-controller="Relatorios" asp-action="MateriaisPorCategoria">Materiais por categoria</a></li>
+    <li><a asp-controller="Relatorios" asp-action="MovimentacoesPorMes">Movimentações por mês</a></li>
+</ul>
+@if (User.IsInRole(Perfis.Admin))
+{
+    <ul id="dd-admin" class="dropdown-content">
+        <li><a asp-controller="Funcionarios" asp-action="Index">Funcionários</a></li>
+        <li><a asp-controller="Usuarios" asp-action="Index">Usuários e permissões</a></li>
+        <li><a asp-controller="GerarDados" asp-action="Index">Gerar dados</a></li>
+    </ul>
+}
+
+<nav class="versatto-nav">
+    <div class="nav-wrapper container">
+        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <a asp-controller="Home" asp-action="Index" class="brand-logo">
+            <img src="~/images/logo.png" alt="Versatto" asp-append-version="true">
+        </a>
+        <ul class="right hide-on-med-and-down">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <li><a class="dropdown-trigger" href="#!" data-target="dd-estoque"><i class="material-icons left">inventory_2</i>Estoque<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-trigger" href="#!" data-target="dd-vendas"><i class="material-icons left">request_quote</i>Vendas<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-trigger" href="#!" data-target="dd-relatorios"><i class="material-icons left">bar_chart</i>Relatórios<i class="material-icons right">arrow_drop_down</i></a></li>
+                @if (User.IsInRole(Perfis.Admin))
+                {
+                    <li><a class="dropdown-trigger" href="#!" data-target="dd-admin"><i class="material-icons left">settings</i>Admin<i class="material-icons right">arrow_drop_down</i></a></li>
+                }
+                <li><span class="versatto-user"><i class="material-icons left">account_circle</i>@User.Identity.Name</span></li>
+                <li>
+                    <form method="post" asp-controller="Account" asp-action="Logout" class="versatto-logout-form">
+                        <button type="submit" class="versatto-logout-btn"><i class="material-icons left">logout</i>Sair</button>
+                    </form>
+                </li>
+            }
+            else
+            {
+                <li><a asp-controller="Account" asp-action="Login"><i class="material-icons left">login</i>Entrar</a></li>
+            }
+        </ul>
+    </div>
+</nav>
+
+<div class="container" style="margin-top:20px">
+    @if (TempData["Info"] != null)
+    {
+        <div class="alerta-ok">@TempData["Info"]</div>
+    }
+    @if (TempData["Erro"] != null)
+    {
+        <div class="alerta-erro">@TempData["Erro"]</div>
+    }
+    @RenderBody()
+</div>
+
+<footer class="page-footer" style="background:#1a3a6b;margin-top:40px">
+    <div class="footer-copyright">
+        <div class="container center white-text" style="font-size:.85rem">
+            &copy; @DateTime.Now.Year Versatto Móveis Planejados &mdash; Sistema de Gestão de Estoque
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="~/js/app.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
